@@ -743,6 +743,129 @@ button { font-family: inherit; cursor: pointer; }
 .tool-icon-wrap img { width: 26px; height: 26px; object-fit: contain; }
 
 /* =========================================================
+   VIDEO WORKS
+   ========================================================= */
+#video-works {
+  padding: 112px 0;
+  background: var(--bg-off);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.video-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 28px;
+}
+
+.video-card {
+  background: var(--bg);
+  border: 1.5px solid var(--border-card);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--ease), border-color var(--ease), box-shadow var(--ease);
+  display: flex;
+  flex-direction: column;
+}
+.video-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(124,58,237,0.28);
+  box-shadow: var(--shadow-md);
+}
+
+/* Thumbnail */
+.video-thumb-link { display: block; text-decoration: none; }
+.video-thumb-wrap {
+  position: relative;
+  aspect-ratio: 16/9;
+  overflow: hidden;
+  background: #111;
+}
+.video-thumb-img {
+  width: 100%; height: 100%;
+  object-fit: cover; object-position: center;
+  display: block;
+  transition: transform 0.42s ease;
+}
+.video-card:hover .video-thumb-img { transform: scale(1.04); }
+
+.video-thumb-overlay {
+  position: absolute; inset: 0;
+  background: rgba(18,10,40,0.28);
+  transition: background var(--ease);
+}
+.video-card:hover .video-thumb-overlay {
+  background: rgba(124,58,237,0.32);
+}
+
+/* Play button */
+.video-play-btn {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 54px; height: 54px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.92);
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.28);
+  transition: transform var(--ease), background var(--ease);
+  z-index: 2;
+}
+.video-play-btn i {
+  color: var(--purple);
+  font-size: 1.1rem;
+  margin-left: 3px; /* optical center */
+}
+.video-card:hover .video-play-btn {
+  transform: translate(-50%, -50%) scale(1.12);
+  background: #fff;
+}
+
+/* Card body */
+.video-card-body {
+  padding: 20px 22px 24px;
+  display: flex; flex-direction: column; gap: 10px;
+  flex: 1;
+}
+.video-card-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1rem; font-weight: 700;
+  color: var(--text-head); line-height: 1.3;
+}
+.video-card-desc {
+  font-size: 0.84rem; color: var(--text-body);
+  line-height: 1.68; flex: 1;
+}
+
+/* Tools tag row */
+.video-tools-row {
+  display: flex; flex-wrap: wrap; gap: 7px;
+  margin-top: 2px;
+}
+.video-tool-tag {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-size: 0.68rem; font-weight: 600;
+  padding: 3px 10px;
+  border: 1.5px solid var(--border-card);
+  border-radius: 999px;
+  color: var(--text-muted);
+  background: var(--bg-off);
+}
+.video-tool-tag i { color: var(--purple); font-size: 0.65rem; }
+
+/* Watch button */
+.video-watch-btn {
+  margin-top: 4px;
+  align-self: flex-start;
+}
+
+/* Responsive */
+@media (max-width: 700px) {
+  .video-grid { grid-template-columns: 1fr; }
+}
+
+/* =========================================================
    SKILLS
    ========================================================= */
 #skills {
