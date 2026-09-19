@@ -161,13 +161,20 @@ if (sections.length) {
 })();
 
 /* ── Number counter animation ── */
-function animateCount(el) {
-  const text = el.textContent.trim();
-  const num  = parseFloat(text.replace(/[^0-9.]/g, ''));
-  if (isNaN(num) || num === 0) return;
+const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  const prefix = (text.match(/^[^0-9]*/) || [''])[0];
-  const suffix = (text.match(/[^0-9.]*$/) || [''])[0];
+function animateCount(el) {
+  if (prefersReducedMotion) return;
+  const text = el.textContent.trim();
+  const match = text.match(/[0-9]+(\.[0-9]+)?/);
+  if (!match) return;
+  const numStr = match[0];
+  const num = parseFloat(numStr);
+  if (isNaN(num) || num === 0) return;
+  const decimals = numStr.includes('.') ? numStr.split('.')[1].length : 0;
+
+  const prefix = text.slice(0, match.index);
+  const suffix = text.slice(match.index + numStr.length);
   const duration = 1600;
   const start = performance.now();
 
@@ -175,7 +182,7 @@ function animateCount(el) {
     const t = Math.min((now - start) / duration, 1);
     const ease = 1 - Math.pow(1 - t, 3);
     const val = ease * num;
-    el.textContent = prefix + (Number.isInteger(num) ? Math.round(val) : val.toFixed(0)) + suffix;
+    el.textContent = prefix + val.toFixed(decimals) + suffix;
     if (t < 1) requestAnimationFrame(step);
   }
   requestAnimationFrame(step);
